@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>¡Feliz Cumpleaños Mi Amor! 💕</title>
     <style>
+        /* ===== RESET Y BASE ===== */
         * {
             margin: 0;
             padding: 0;
@@ -760,6 +761,7 @@
             z-index: 2;
         }
 
+        /* ===== EFECTOS FLOTANTES ===== */
         .floating-hearts {
             position: fixed;
             top: 0;
@@ -829,6 +831,7 @@
             }
         }
 
+        /* ===== EFECTOS DE INTERACCIÓN ===== */
         .scroll-reveal {
             opacity: 0;
             transform: translateY(80px);
@@ -992,6 +995,7 @@
     <div class="particle-container" id="particleContainer"></div>
     
     <div class="container">
+        <!-- Header Creativo -->
         <header class="header">
             <div class="header-decoration decoration-1">🌟</div>
             <div class="header-decoration decoration-2">💖</div>
@@ -1032,6 +1036,7 @@
             </div>
         </div>
 
+        <!-- Sección 2: Nuestra Canción Especial (Centro) -->
         <div class="music-section scroll-reveal">
             <div class="music-player-container">
                 <div class="music-note note-1">🎵</div>
@@ -1046,10 +1051,9 @@
                         <div class="song-title">Just The Way You Are</div>
                         <div class="song-artist">Bruno Mars</div>
                         
-                        <!-- Audio element oculto -->
+                        <!-- Audio element oculto - CAMBIO PRINCIPAL -->
                         <audio id="audioPlayer" preload="auto" loop>
                             <source src="bruno.mp3" type="audio/mpeg">
-                            <source src="just-the-way-you-are.ogg" type="audio/ogg">
                             Tu navegador no soporta el elemento de audio.
                         </audio>
                     </div>
@@ -1265,17 +1269,22 @@
             
             if (!isPlaying) {
                 // Intentar reproducir el audio
-                audioPlayer.play().then(() => {
-                    playButton.innerHTML = '⏸️';
-                    playButton.classList.add('playing');
-                    musicWaves.style.opacity = '1';
-                    musicWaves.style.display = 'flex';
-                    isPlaying = true;
-                }).catch(error => {
-                    console.log('Error al reproducir audio:', error);
-                    alert('¡Ups! Necesitas agregar el archivo "just-the-way-you-are.mp3" en la misma carpeta que este archivo HTML.');
-                });
+                const playPromise = audioPlayer.play();
                 
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        // Reproducción exitosa
+                        playButton.innerHTML = '⏸️';
+                        playButton.classList.add('playing');
+                        musicWaves.style.opacity = '1';
+                        musicWaves.style.display = 'flex';
+                        isPlaying = true;
+                    }).catch(error => {
+                        console.log('Error al reproducir audio:', error);
+                        // CAMBIO IMPORTANTE: Actualizado para referirse a "bruno.mp3"
+                        alert('¡Ups! Necesitas agregar el archivo "bruno.mp3" en la misma carpeta que este archivo HTML. Si ya lo has hecho, por favor asegúrate de que el archivo no esté corrupto.');
+                    });
+                }
             } else {
                 audioPlayer.pause();
                 playButton.innerHTML = '▶️';
