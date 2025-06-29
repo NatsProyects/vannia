@@ -1027,9 +1027,6 @@
                 <div class="image-card">
                     <div class="image-placeholder">
                         <div class="image-content">
-                            <div class="camera-icon">📷</div>
-                            <p class="image-text">Una Foto juntos</p>
-                            <small class="image-subtitle">Un momento perfecto juntos</small>
                         </div>
                     </div>
                 </div>
@@ -1060,9 +1057,9 @@
                     
                     <div class="music-controls">
                         <!-- Solo el botón de play/pause -->
-                        <div class="play-button" onclick="toggleMusic()" id="playButton">
-                            ▶️
-                        </div>
+                    <div class="play-button" onclick="toggleMusic(event)" id="playButton">
+                        ▶️
+                    </div>
                     </div>
                     
                     <div class="music-waves" id="musicWaves" style="opacity: 0;">
@@ -1238,7 +1235,7 @@
         }
 
         // ===== FUNCIONES DE MÚSICA =====
-        function toggleMusic() {
+        function toggleMusic(event) {
             const playButton = document.getElementById('playButton');
             const musicWaves = document.getElementById('musicWaves');
             const audioPlayer = document.getElementById('audioPlayer');
@@ -1249,7 +1246,6 @@
                 
                 if (playPromise !== undefined) {
                     playPromise.then(() => {
-                        // Reproducción exitosa
                         playButton.innerHTML = '⏸️';
                         playButton.classList.add('playing');
                         musicWaves.style.opacity = '1';
@@ -1257,8 +1253,7 @@
                         isPlaying = true;
                     }).catch(error => {
                         console.log('Error al reproducir audio:', error);
-                        // CAMBIO IMPORTANTE: Actualizado para referirse a "bruno.mp3"
-                        alert('¡Ups! Necesitas agregar el archivo "bruno.mp3" en la misma carpeta que este archivo HTML. Si ya lo has hecho, por favor asegúrate de que el archivo no esté corrupto.');
+                        alert('¡Ups! Asegúrate de que el archivo "Bruno.mp3" esté correctamente en la carpeta y no esté corrupto.');
                     });
                 }
             } else {
@@ -1268,9 +1263,10 @@
                 musicWaves.style.opacity = '0';
                 isPlaying = false;
             }
-            
+        
             createClickEffect(event);
         }
+
 
         // ===== FUNCIONES DE INTERACCIÓN =====
         function createTitleExplosion() {
